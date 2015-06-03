@@ -1,5 +1,27 @@
-var fileExtList = ['txt','doc', 'docx', 'pdf', 'xls', 'xlsx', 'xlsm']
-var fso = new ActiveXObject("Scripting.FileSystemObject");
+var fso = new ActiveXObject('Scripting.FileSystemObject');
+
+var fileExtList = { 
+	txt : 'txt', 
+	doc : 'doc', 
+	docx : 'docx', 
+	pdf : 'pdf', 
+	xls : 'xls', 
+	xlsx : 'xlsx', 
+	xlsm : 'xlsm'
+};
+
+function getFileExt(fileShortName) {
+	if(fileShortName.indexOf('.') > -1) {
+		return fileShortName.split('.').pop().toLowerCase();
+	} else {
+		return false;
+	}
+};
+
+function isValidExt(fileShortName) {
+	var ext = getFileExt(fileShortName);
+	return ext ? fileExtList[ext] : false;
+};
 
 function getFiles(folderPath) {
 	var folder = fso.GetFolder(folderPath);
@@ -8,11 +30,13 @@ function getFiles(folderPath) {
   	var fileList = new Enumerator(folder.files);
   	for (; !fileList.atEnd(); fileList.moveNext()) {
 			try {
-				
+				if(isValidExt(fileList.item().ShortName)) {
+					
+				}
 			} catch(err) {}
 		}
 	}
-}
+};
 
 function getFolders(path) {
 	var folder = fso.GetFolder(path);
@@ -26,12 +50,12 @@ function getFolders(path) {
 		}
 	}
 	getFiles(path);
-}
+};
 
 function getDocumentFolder() {
-	var wsh = new ActiveXObject("WScript.Shell");
-	var path = wsh.RegRead("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\Personal");
+	var wsh = new ActiveXObject('WScript.Shell');
+	var path = wsh.RegRead('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\Personal');
 	getFolders(path);
-}
+};
 
 getDocumentFolder();
