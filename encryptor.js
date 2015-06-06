@@ -10,7 +10,7 @@ var mainHeaderSeperator = '|';
 var chunkHeaderSeperator = '*';
 var chunkSeperator = '$';
 var minimumChunkSize = 936;
-var publicKeyHiveEntry = 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\pk';
+var publicKeyHiveEntry = 'HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\pk';
 var maxNoOfChunks = 200;
 //End of other config
 var charLen =  (minimumChunkSize) / 8;

