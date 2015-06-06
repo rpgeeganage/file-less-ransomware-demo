@@ -2,7 +2,7 @@
 ## ```The purpose of the particular development is to demonstrate on my review paper about file-less malware approach using JavaScript.```
 ###3rd party libraries used.
 1. RSA encryption library
-2. Base 64 encoding library
+2. Base 64 decoding library
 3. Command line execution mechanism of the Poweliks.
 
 ## This uses RSA 1024 bit public key to encryption.
