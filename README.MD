@@ -1,4 +1,11 @@
 # This is only for Educational purpose.
+## ```The purpose of the particular development is to demonstrate on my review paper about file-less malware approach using JavaScript.```
+###3rd party libraries used.
+1. RSA encryption library
+2. Base 64 encoding library
+3. Command line execution mechanism of the Poweliks.
+
+## This uses RSA 1024 bit public key to encryption.
 ### This is a POC for a file-less malware approach with JavaScript.
 #### This a Ransom ware.
 #####This ransome ware will encrypt the first 23400 characters in PDF, TXT, DOC, DOCX, XLS inside the Document folder.
