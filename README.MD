@@ -24,7 +24,7 @@ Registry entry creation
 
 >```Triggering point``` => ```HKCU\Software\Microsoft\Windows\CurrentVersion\Run\fileLessRw```
 
-#####Encryption nd File Reader module is stored in Base 64 Encoded format.
+##### Encryption nd File Reader module is stored in Base 64 Encoded format.
 
 ### Exection module
 
